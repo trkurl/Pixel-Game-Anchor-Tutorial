@@ -4,7 +4,8 @@
  // ***PIXEL GAME TUTORIAL*** //  
  -------------------------------------
  
-![Adsız](https://github.com/Yusufcihan1/pixel-game-using-anchor/assets/50721899/17d58330-aa0d-4662-b2fe-aa6805da4ada)
+![Adsız](https://github.com/trkurl/Pixel-Game-Anchor-Tutorial/assets/93617108/88a93982-c6ea-4256-a27f-c22db39c3d5b)
+
 
 ------------------------------------------------------------------------------------------------------
 **Tutorial Level : Intermediate**
@@ -32,7 +33,8 @@ What we’re building
 --------------------
 We’re going to build a fun little collaborative pixel art app. It’ll let us get into the nitty gritty of storing and updating data on chain in Solana, and using events to make our app real time. All the canvas state will be stored on-chain. At the end you’ll have a canvas where you can draw with frens!
 
-![26](https://github.com/Yusufcihan1/pixel-game-using-anchor/assets/50721899/350a3c65-4401-4e54-a0b0-dce9397485b7)
+
+![26](https://github.com/trkurl/Pixel-Game-Anchor-Tutorial/assets/93617108/9d2f0159-4979-4e8a-bb3f-0a0b6adb70ca)
 
 
 About Solana
@@ -235,6 +237,7 @@ Head to the starter code repo, hit fork to make your own copy and then clone it 
 
 https://github.com/trkurl/Pixel-Game-Anchor-Tutorial.git
 
+
 Make sure you have the start branch checked out
 
 If you browse to the frontend/ directory you should see a pretty standard NextJS app. You can run it:
@@ -247,7 +250,9 @@ $ npm run dev
 ```
 Browse to localhost:3000 and you should see the app running with most of the frontend layout in place:
 
-<img width="1190" alt="4" src="https://github.com/Yusufcihan1/gametutorial/assets/50721899/bdc899bf-b1e0-4153-91d4-2e9aab30f718">
+
+<img width="1190" alt="4" src="https://github.com/trkurl/Pixel-Game-Anchor-Tutorial/assets/93617108/6d23c1c8-d438-40ef-b12d-e81229fe5c8a">
+
 
 Feel free to check out the starter code if you’re interested. But for now, in the next lesson we’re going to get to writing our program! Later we’ll loop back and connect the frontend up to it.
 
@@ -386,7 +391,8 @@ Pixel Account
  The major thing that it doesn’t cover is storing data. If you’ve written a contract for any other chain then this probably works quite differently to what you’re used to.
 
 First, let’s consider exactly what state we need to store.
-![5](https://github.com/Yusufcihan1/pixel-game-using-anchor/assets/50721899/e04c2542-edb8-46db-80f6-b5a02eeb1c0f)
+
+![5](https://github.com/trkurl/Pixel-Game-Anchor-Tutorial/assets/93617108/97d3a708-ef7e-4037-b4ad-9e2fff95f027)
 
 Each position on our canvas is uniquely identified by an x and y co-ordinate. And each of these can have a color, or it might not have been colored by anybody yet.
 
@@ -440,7 +446,8 @@ Pixel account size
 When we create a Pixel account we will need to tell the Solana runtime how much space it needs, in bytes. Each of our u8 properties is 1 byte, so that’s 5 bytes for our data. In addition every Anchor account is prefixed with an 8-byte discriminator. This is a unique hash per account, which allows Anchor to determine what the type of the account is. It’s a security feature that means we can be sure that when we write an instruction that expects a Pixel account, that’s the account that will be passed in. If somebody tried to call the instruction with a different account type, it would be rejected since it’d have the wrong discriminator.
 
 So here’s what our account layout is going to look like:
-<img width="1123" alt="8" src="https://github.com/Yusufcihan1/pixel-game-using-anchor/assets/50721899/2a51814d-2f89-468d-80f7-0c0ce17d8ec4">
+
+<img width="1123" alt="6" src="https://github.com/trkurl/Pixel-Game-Anchor-Tutorial/assets/93617108/bdc8778b-caad-4428-9a7a-de14ac0468ae">
 
 There’s the 8-byte discriminator, and then our 5 u8 values. The total size is 13 bytes.
 
@@ -937,7 +944,8 @@ Here I’m creating the pixel (20, 20) twice at different addresses. The test is
 
 Note that in Anchor all our tests run sequentially on the local network. So the state is shared between them. That’s a bit different to how we usually try to make unit tests independent, so it can be a bit confusing. In our case the easiest thing is to use a different x/y value for each test.
 
-![9](https://github.com/Yusufcihan1/pixel-game-using-anchor/assets/50721899/d24be58e-2b0a-421e-a03e-a17b9384d4a0)
+![9](https://github.com/trkurl/Pixel-Game-Anchor-Tutorial/assets/93617108/750d2d7f-dbaa-49fd-b795-c355e0ece79d)
+
 
 But currently it is possible! If we run anchor test the test fails: I get that “Error: Expected to error!” message. So.. how can we fix this?
 
@@ -955,7 +963,8 @@ PDAs are addresses that we derive from a program ID and a set of seeds. So for e
 They also have one really critical property: they are off the curve. To understand what that means we need to learn a little bit about how Solana’s cryptography actually works.
 
 In short, Solana (and other chains like Bitcoin and Ethereum) use a cryptography standard called Elliptic Curve Cryptography (ECC). A private key is just a really big number: it’s 32 bytes or 128 bits. A public key can be represented as a point on a curve, and that point is calculated from that really big number. The way the math works means that it’d require an insane amount of time to get from that point on the curve and figure out the massive number that was used to calculate it. And that’s the basis of the security: if you have a public key you can’t figure out the private one!
-![10](https://github.com/Yusufcihan1/pixel-game-using-anchor/assets/50721899/db8d968a-02b4-4fa4-af6d-6546fb4860b8)
+![10](https://github.com/trkurl/Pixel-Game-Anchor-Tutorial/assets/93617108/701b5873-d135-422a-b9ae-97c976d4a10d)
+
 
 BTW that graphic is just an example, not an actual ECC curve! Importantly every private key can be used to calculate a point on the curve, a public key. These are the wallets we can import into Phantom and things! But not every (x, y) coordinate is on the curve, just like any other graph.
 
@@ -1728,8 +1737,9 @@ export default function Home() {
 ```
 
 We’re just using WalletMultiButton which lets the user select from any of the wallets we set. It also provides some nice convenience features:
-<img width="684" alt="11" src="https://github.com/Yusufcihan1/pixel-game-using-anchor/assets/50721899/abad7b56-1e19-4831-b681-017f54f887ae">
+
 And that’s all we need to connect a wallet!
+<img width="684" alt="11" src="https://github.com/trkurl/Pixel-Game-Anchor-Tutorial/assets/93617108/2c8c34ee-9d7c-45f2-8c8a-21e89c694073">
 
 Fetching the pixels
 -----------------------
@@ -1750,7 +1760,7 @@ We want to create these same structures in our app. It’s a bit more complex be
 
 While the unit test version hides it a bit, there is a relationship between them: the provider is a dependency for the program. That’s why we use anchor.setProvider, but it’s still less obvious than what we’ll see when we build them ourselves. The provider gives us the ability to send transactions to Solana: it’s a combination of the network connection and a wallet that will be used to send transactions. It doesn’t know anything about our program specifically. The program combines the provider with knowledge of our program and of all its functionality and types, to provide a nice API to our program. Here’s a diagram showing how it all fits together:
 
-![12](https://github.com/Yusufcihan1/pixel-game-using-anchor/assets/50721899/6382ce4b-014a-4ff1-9a77-6f4ebddf8134)
+![12](https://github.com/trkurl/Pixel-Game-Anchor-Tutorial/assets/93617108/2745d690-8b7d-45d1-92df-6c2566da0b75)
 
 We already have the ability to get the Solana network connection and connected wallet from the wallet connect code we added previously. So we can create our Anchor Provider! Let’s do that, and then come back to the Program.
 
@@ -1831,7 +1841,8 @@ In react useMemo is used to re-compute an object when one of its dependencies ch
 Creating the program
 ------------------------
 Now let’s take a closer look at how we build our Program
-![13](https://github.com/Yusufcihan1/pixel-game-using-anchor/assets/50721899/117f6a9e-b951-46c8-8391-0a55872b41f3)
+![13](https://github.com/trkurl/Pixel-Game-Anchor-Tutorial/assets/93617108/15f9a553-8dd6-4bc7-b652-b6c5bfc44832)
+
 We’ve got the provider now, we’ve already seen the program ID, now we’re just missing the IDL.
 
 IDL stands for Interactive Description Language, and it’s something that Anchor generates for us for our program. It describes all the types and functions in our program, and combined with TypeScript it makes our AnchorProgram really awesome.
@@ -1993,9 +2004,11 @@ return (
 )
 ```
 Awesome! Now if you refresh the app you should see that if there’s no account connected the canvas gets disabled:
-<img width="1192" alt="14" src="https://github.com/Yusufcihan1/pixel-game-using-anchor/assets/50721899/f2dce1a8-68f6-4d9e-83fc-a5ca9d8a1757">
+<img width="1192" alt="14" src="https://github.com/trkurl/Pixel-Game-Anchor-Tutorial/assets/93617108/3c12afaf-21d8-4e1e-b435-4d8590eb2f07">
+
 And if you connect an account you should see the pixels get fetched!
-<img width="1202" alt="15" src="https://github.com/Yusufcihan1/pixel-game-using-anchor/assets/50721899/23363775-605b-4d40-95d9-2a1112b80b77">
+<img width="1202" alt="15" src="https://github.com/trkurl/Pixel-Game-Anchor-Tutorial/assets/93617108/4905e304-aa91-490c-a515-d6cb689036f6">
+
 
 Hmm yea, so there aren’t any yet. Makes sense! We’ll come back to that once we’ve created some!
 
@@ -2079,11 +2092,13 @@ return (
 ```
 
 Now if you click on a pixel on the canvas, you should see:
-<img width="889" alt="16" src="https://github.com/Yusufcihan1/pixel-game-using-anchor/assets/50721899/f779ca01-3f01-40d8-b87f-f8319e4cb6a4">
+
 If you approve that transaction, and you don’t get an error message, then it worked! Unfortunately there’s no feedback yet but one step at a time :)
+<img width="889" alt="16" src="https://github.com/trkurl/Pixel-Game-Anchor-Tutorial/assets/93617108/9f3edd07-5dcd-4ff0-b42e-0f28edc1d6e1">
 
 If you refresh the page you should see it come back in the fetched pixels that we log in the browser console:
-<img width="362" alt="17" src="https://github.com/Yusufcihan1/pixel-game-using-anchor/assets/50721899/1c44d509-522f-4b43-a50d-3694ab9411f2">
+<img width="362" alt="17" src="https://github.com/trkurl/Pixel-Game-Anchor-Tutorial/assets/93617108/9816803e-9c33-40ec-bf9b-7f273b15831c">
+
 
 Feel free to create a few, and make sure they all come back in that array when you refresh!
 
@@ -2098,14 +2113,15 @@ When we fetch the pixel data we get an array of all the accounts in no particula
 
 This data structure will be a map, with the keys being our coordinates and the value being the fetched pixel data. However in Javascript/Typescript, we can’t use a tuple/list as a key for a map. The reason is that lists are never considered equal, so if we had [1,2,3] as a key and then we asked “hey does the map contain [1,2,3]?” the answer would always be no. Kinda not great! You can see this yourself in your browser console:
 
-<img width="143" alt="18" src="https://github.com/Yusufcihan1/pixel-game-using-anchor/assets/50721899/0e3cc0bd-3c11-4e98-8056-edf66d81019f">
+<img width="143" alt="18" src="https://github.com/trkurl/Pixel-Game-Anchor-Tutorial/assets/93617108/6a8cd927-c309-4124-9d4c-21386a749e24">
+
 
 So instead we’ll give each pixel a unique ID. This will be 100 * y + x. So (0,0) has ID 0, and (10, 50) has ID 50 * 100 + 10 = 5010
 
 I put y first because in our code we iterate over y first, which means the pixels will be rendered in sequential ID order. Just makes it a little easier to reason about. But it doesn’t matter too much: the important thing is that each ID is unique and calculated from x and y.
 
 Here’s how it looks:
-<img width="1609" alt="19" src="https://github.com/Yusufcihan1/pixel-game-using-anchor/assets/50721899/bcdce195-5a16-44d5-8481-39170bb38d08">
+<img width="1609" alt="19" src="https://github.com/trkurl/Pixel-Game-Anchor-Tutorial/assets/93617108/bc2b54c9-6cce-447e-b046-dab2c6cadf08">
 
 Here’s our updated canvas code so we now generate the pixel map:
 
@@ -2158,7 +2174,8 @@ type PixelAccount = IdlAccounts<DrawWithFrens>['pixel']
 ```
 
 This looks a bit complicated but it’s a really cool feature of Anchor! We’re extracting a TypeScript type for the data in our Pixel struct that we defined. If you hover it in your IDE you should see the type:
-<img width="479" alt="20" src="https://github.com/Yusufcihan1/pixel-game-using-anchor/assets/50721899/7968df39-8331-4003-9e33-b66b4cbdfbc5">
+<img width="479" alt="20" src="https://github.com/trkurl/Pixel-Game-Anchor-Tutorial/assets/93617108/38b40d8d-a461-4fad-9438-a8f963943ac4">
+
 Also notice that while we called our fields things like pos_x and col_r to match Rust conventions, Anchor gives us posX and colR in TypeScript to match those conventions. TypeScript and Anchor go together super well!
 
 We’re defining React state to store a list of that type:
@@ -2414,7 +2431,8 @@ In either case, once our state updates the pixelMap will be automatically update
 That’s all we have to do! If you create a new pixel now, you’ll see it update on the canvas!
 
 You might notice that this is purely event driven: we’re not listening for the transaction that we sent, we’re just listening for the event to be emitted. That means that if you open your app in different browser windows, they’ll be kept in sync:
-![21](https://github.com/Yusufcihan1/pixel-game-using-anchor/assets/50721899/e42d03a5-83c7-484c-9a03-a3e72c231f0e)
+![21](https://github.com/trkurl/Pixel-Game-Anchor-Tutorial/assets/93617108/fa46eda0-4881-4ea1-8d8e-c9de9952ab0d)
+
 Congrats! You just built a live, realtime, collaborative app!
 
 When you deploy your app later, it’ll be synced for anyone anywhere in the world. We have no infrastructure to maintain to make that happen, we’re just listening to on-chain events.
@@ -2586,8 +2604,8 @@ return (
 Everything outside of that return stays the same :)
 
 And now if you select a different color block at the top, that’ll be used for your new pixels!
+<img width="232" alt="21" src="https://github.com/trkurl/Pixel-Game-Anchor-Tutorial/assets/93617108/dbf859fd-a09e-4fec-b4be-c5e00771f734">
 
-<img width="232" alt="21" src="https://github.com/Yusufcihan1/pixel-game-using-anchor/assets/50721899/c3214da3-43d6-48ce-9ddf-99a8608a7b69">
 
 Apps that can draw rainbows > apps that can’t!
 
@@ -2595,7 +2613,8 @@ Updating pixels
 -------------------
 There’s one thing missing from our app: we can’t update a pixel that’s already been created. If you try clicking on a pixel that’s already got a color you’ll get this lame “transaction may fail to confirm” error (or similar, depending on your wallet!)
 
-<img width="472" alt="22" src="https://github.com/Yusufcihan1/pixel-game-using-anchor/assets/50721899/44afb8ea-f856-4f1f-a7dc-3d9980579e7a">
+<img width="472" alt="22" src="https://github.com/trkurl/Pixel-Game-Anchor-Tutorial/assets/93617108/7fcf7be4-598b-4334-81e3-1e95e177768a">
+
 
 The problem is that we’re always calling that createPixel instruction, and we know that doesn’t work if we already have a pixel at the address. We even wrote a test to make sure of that!
 
@@ -2603,7 +2622,8 @@ So we need to call our updatePixel instruction instead. Try doing this yourself!
 
 You’ll know it’s worked when you can click on an already colored pixel and get something like this:
 
-<img width="472" alt="23" src="https://github.com/Yusufcihan1/pixel-game-using-anchor/assets/50721899/32930023-2948-4e14-a3fc-841a4b0cbdfa">
+<img width="472" alt="23" src="https://github.com/trkurl/Pixel-Game-Anchor-Tutorial/assets/93617108/9c937c17-b71b-4190-a331-5751169e07ce">
+
 
 Remember how our update instruction doesn’t initialize any new accounts, so it doesn’t cost any SOL.
 
@@ -2754,7 +2774,8 @@ You can see your program deployed on the Solana explorer: https://explorer.solan
 
 Search the Program Id and you should see the account:
 
-<img width="1139" alt="24" src="https://github.com/Yusufcihan1/pixel-game-using-anchor/assets/50721899/f169bc0f-50d6-4388-a2e6-2a5534de8e42">
+<img width="1139" alt="24" src="https://github.com/trkurl/Pixel-Game-Anchor-Tutorial/assets/93617108/816b2f4b-d496-45a5-ba9f-8e0fff5d066d">
+
 
 Updating the frontend
 ---------------------------
@@ -2801,7 +2822,8 @@ There’s nothing magic here, our app is just a fully static NextJS app. It can 
 
 The easiest place to deploy it is probably Vercel: just point it at your github repo with the fork (make sure you push your changes!). You’ll need to set the root directory to frontend, since you only want Vercel to deploy that directory:
 
-<img width="869" alt="25" src="https://github.com/Yusufcihan1/pixel-game-using-anchor/assets/50721899/05d016a0-9db6-4d7d-bafd-193da9c09ffc">
+<img width="869" alt="25" src="https://github.com/trkurl/Pixel-Game-Anchor-Tutorial/assets/93617108/78d669e3-d4fb-4b3a-ba55-7a9d72dd01d8">
+
 
 Huge congrats on completing the tutorial! Hopefully you’ve learned lots building an awesome app! 🔥
 -----
