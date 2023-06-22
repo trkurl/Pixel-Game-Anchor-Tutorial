@@ -232,7 +232,8 @@ Awesome! We’ve set up a whole bunch of stuff and we’re ready to get to codin
 I’ve included some starter code for the frontend app, but we’ll write all the solana stuff from scratch together.
 
 Head to the starter code repo, hit fork to make your own copy and then clone it locally:
-*********************************************************************************************
+
+https://github.com/trkurl/Pixel-Game-Anchor-Tutorial.git
 
 Make sure you have the start branch checked out
 
